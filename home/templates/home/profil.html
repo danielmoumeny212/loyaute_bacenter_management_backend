@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+      <!-- Modal -->
+      <form method="post" enctype="multipart/form-data">
+        <div
+        style="padding: 2rem"
+            >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title text-black text-uppercase p-3"
+                id="exampleModalLabel"
+                style="font-size: 2rem"
+              >
+                Modifier les informations utilisateur
+              </h5>
+            </div>
+            <div class="modal-body">
+              <form class="form" method="post">
+                {% csrf_token %}
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-outline">
+                      {{ form.first_name }}
+                      <label
+                        class="form-label"
+                        for="id_first_name"
+                        style="font-size: 1.2rem"
+                        >Prenom</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-outline">
+                      {{ form.last_name }}
+                      <label
+                        class="form-label"
+                        for="id_last_name"
+                        style="font-size: 1.2rem"
+                        >Nom</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                  {{ form.username }}
+                  <label
+                    class="form-label"
+                    for="id_username"
+                    style="font-size: 1.2rem"
+                    >Nom d'utilisateur</label
+                  >
+                </div>
+                <div class="form-outline mb-4">
+                  {{ form.old_password }}
+                  <label
+                    class="form-label"
+                    for="id_username"
+                    style="font-size: 1.2rem"
+                    >Ancien mot de passe</label
+                  >
+                </div>
+                <div class="form-outline mb-4">
+                  {{ form.new_password }}
+                  <label
+                    class="form-label pb-4"
+                    for="id_username"
+                    style="font-size: 1.2rem"
+                    >Nouveau mot de passe </label
+                  >
+                </div>
+        
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  {{ form.email }}
+                  <label
+                    class="form-label"
+                    for="id_email"
+                    style="font-size: 1.2rem"
+                    >Email</label
+                  >
+                </div>
+                <div class="form-outline mb-4">
+                  <label
+                    class="form-label"
+                    for="id_is_statut"
+                    style="font-size: 1.2rem"
+                    >Statut</label
+                  >
+                  {{ form2.statut }}
+                </div>
+                
+                <div class="p-3">
+                  <label for="formFileMultiple" class="form-label">Choisir une image </label>
+                <input class="form-control" type="file" id="formFileMultiple"  />
+                </div>
+                <div class="form-check d-flex justify-content-center mb-4">
+                  {{ form2.is_admin }}
+                  {% comment %} <input class="form-check-input me-2" type="checkbox" value="" id="form5Example3" checked /> {% endcomment %}
+                  <label class="form-check-label" for="form5Example3"  style="font-size: 1.6rem">
+                    Administrateur
+                  </label>
+                </div>
+                <!-- Number input -->
+                <div class="modal-footer">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="font-size: 1.6rem"
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+            </div>
+          </div>
+      </form>
+</section>
+
+
+{% endblock %}

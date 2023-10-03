@@ -1,0 +1,401 @@
+a{% extends 'base.html' %} {% load static %} {% block head %}
+{% endblock %} 
+{% block content %}
+
+<main class="main">
+  <div class="table-header">
+    {% if users %}
+    <div class="search-form">
+      <input
+        type="text"
+        id=""
+        placeholder="Chercher un utilisateur"
+        required
+        maxlength="100"
+        id="search_user"
+
+      />
+      {% endif %}
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-mdb-toggle="modal"
+      data-mdb-target="#exampleModal"
+      style="font-size: medium"
+    >
+      Nouvel utilisateur
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      style="padding: 2rem"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title text-black text-uppercase"
+              id="exampleModalLabel"
+              style="font-size: 2rem"
+            >
+              Enregistrer un nouvel utilisateur
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-mdb-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="form" method="post">
+              {% csrf_token %}
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.first_name }}
+                    <label
+                      class="form-label"
+                      for="id_first_name"
+                      style="font-size: 1.2rem"
+                      >Prenom</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.last_name}}
+                    <label
+                      class="form-label"
+                      for="id_last_name"
+                      style="font-size: 1.2rem"
+                      >Nom</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Text input -->
+              <div class="form-outline mb-4">
+                {{ form.username}}
+                <label
+                  class="form-label"
+                  for="id_username"
+                  style="font-size: 1.2rem"
+                  >Nom d'utilisateur</label
+                >
+              </div>
+
+              <div class="form-outline mb-4">
+                {{ form.password }}
+                <label
+                  class="form-label"
+                  for="id_username"
+                  style="font-size: 1.2rem"
+                  >Mot de passe</label
+                >
+              </div>
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                {{ form.email }}
+                <label
+                  class="form-label"
+                  for="id_email"
+                  style="font-size: 1.2rem"
+                  >Email</label
+                >
+              </div>
+
+              <div class="form-outline mb-4">
+                <label
+                  class="form-label"
+                  for="id_is_statut"
+                  style="font-size: 1.2rem"
+                  >Statut</label
+                >
+                {{ form2.statut }}
+              </div>
+
+              <div class="form-check d-flex justify-content-center mb-4">
+                {{ form2.is_admin }}
+
+                <input class="form-check-input me-2" type="checkbox" value="" id="form5Example3" checked />
+                <label class="form-check-label" for="form5Example3"  style="font-size: 1.6rem">
+                  Administrateur
+                </label>
+              </div>
+            
+
+              <!-- Number input -->
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-mdb-dismiss="modal"
+                  style="font-size: 1.6rem"
+                >
+                  Fermer
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="font-size: 1.6rem"
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<section>
+  {% if users %}
+  <div class="d-flex justify-content-between">
+    {% if users.has_other_pages %}
+
+    <div class="btn-group" role="group" aria-label="Item pagination">
+
+       {% if users.has_previous %}
+
+       <a href="?page={{ users.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+
+       {% endif %}
+
+       {% for page_number in users.paginator.page_range %}
+
+          {% if users.number == page_number %}
+
+             <button class="btn btn-outline-primary active">
+                <span> {{page_number}} <span class="sr-only">(current)</span></span>
+
+             </button>
+
+             {% else %}
+                <a href="?page={{page_number}}" class="btn btn-outline-primary" style="font-size: medium;">
+                   {{ page_number }}
+                </a>
+
+
+          {% endif %}   
+
+       {% endfor %}
+
+       {% if users.has_next %}
+
+          <a href="?page={{ users.next_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+
+       {% endif %}
+
+
+
+    </div>
+
+    {% endif %}
+    <h2 class="text-text-black-50">
+      Total: <span class="text-black">{{ user_count }}</span> &nbsp;utilisateurs
+    </h2>
+  </div>
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Prenom</th>
+        <th scope="col">Dernière connexion</th>
+        <th scope="col">Administrateur</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody id="table">
+      {% for user in users %}
+      <tr>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        {% if user.last_login %}
+        <td>{{ user.last_login }}</td>
+        {% else %}
+        <td>pas encore connecté</td>
+        {% endif %}
+
+        {% if user.is_staff %}
+        <td class="text-success"><i class="fa-solid fa-check"></i></td>
+        {% else %}
+        <td class="text-danger"><i class="fa-solid fa-times"></i></td>
+        {% endif %}
+        <td>{{ user.profil.statut }}</td>
+     
+        
+        <td class="d-flex">
+          <a href="{% url 'profil' user_id=user.pk %}" class="btn btn-outline-primary p-2 m-2" >modifier</a>
+          <button id="btn-del" class="btn btn-outline-danger p-2 m-2 btn-del" data-id="{{ user.pk }}" data-mdb-target="#supprimer" data-mdb-toggle="modal">supprimer</button>
+  
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h5
+    class="modal-title text-black text-uppercase"
+    id="exampleModalLabel"
+    style="font-size: 2rem"
+  >
+    Il y a pas d'utilisateur
+  </h5>
+
+  {% endif %}
+</section>
+
+<div class="modal fade" id="modifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-dark text-center" id="exampleModalLabel">Modification</h5>
+            <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+
+               <input name="id_modified" type="hidden" id="id_modified">
+
+               <label id="label_id" class="text-dark checkbox-inline"> <strong id="strong_id"> This bill has been paid?</strong></label>
+
+               <input type="radio" id="html" name="modified" value="True">
+               <label class="text-white bg-primary" for="html">Yes</label>
+
+               <input type="radio" id="css" name="modified" value="False">
+               <label class="text-white bg-danger" for="css">No</label><br>
+
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
+
+<div class="modal fade" id="supprimer" tabindex="-1" role="dialog" aria-labelledby="sexampleModalLabel"
+   aria-hidden="true" style="padding: 2rem">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-dark" id="sexampleModalLabel" style="font-size: 1.5rem;">Supprimer L'utilisateur</h5>
+            <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form method="post" class="del-form">
+               {% csrf_token %}
+               <label id="label_id_s" class="text-dark checkbox-inline" style="font-size: 2rem;"> <strong id="strong_id_s">Voulez vous vraiment supprimer cette utilisateur?</strong></label>
+
+               <div class="modal-footer">
+                <button
+                type="button"
+                class="btn btn-primary"
+                data-mdb-dismiss="modal"
+                style="font-size: 1.5rem"
+              >
+                Fermer
+              </button>
+              <button
+                type="submit"
+                class="btn btn-danger"
+                style="font-size: 1.5rem"
+              >
+                supprimer
+              </button>
+               </div>
+            </form>
+         </div>
+
+      </div>
+   </div>
+</div>
+<script>
+//   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+//   function sendUserID(userID) {
+//   fetch(location.href, {
+//     method: 'DELETE',
+//     mode: "same-origin",
+//     headers: {
+//       'Content-Type': 'application/json',
+//       "X-CSRFToken": csrftoken
+//     },
+//     body: JSON.stringify({userID: userID})
+//   })
+//   .then(res => res.json())
+//   .then(data => {
+//     console.log('User ID sent to backend:', data);
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
+// } 
+const delModalForm = document.querySelector('.del-form')
+
+
+// let buttons = document.getElementsByClassName('className');
+
+// for (let i = 0; i < buttons.length; i++) {
+//     buttons[i].addEventListener('click', function() {
+//         // code à exécuter lorsque le bouton est cliqué
+//     });
+// }
+
+const delButtons = Array.from(document.querySelectorAll(".btn-del"))
+
+delButtons.forEach((delButton)=> {
+  delButton.addEventListener('click', () => {
+      const id = delButton.getAttribute("data-id");
+      console.log("before")
+      delModalForm.setAttribute('action', `/users/delete/${id}`)
+      console.log("after")
+      console.log(delModalForm.getAttribute('action'));
+  
+      
+  
+  });
+
+})
+
+
+   
+
+   
+  
+</script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.js"
+></script>
+<script>
+  $(document).ready(function(){
+    $("#search_user").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        console.log(value);
+        $("#table tr").filter(function(){
+          $(this).toggle($(this).text().toLocaleLowerCase().indexOf(value)>-1)
+        });
+    });
+  });
+</script>
+{% endblock %}

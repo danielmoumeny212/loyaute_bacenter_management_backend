@@ -1,0 +1,353 @@
+:root {
+  --main-color: #8e44ad; 
+  --red: #e74c3C; 
+  --oragen: #f39c12; 
+  --white: #fff; 
+  --black: #2c3e50; 
+  --light-color: #888;
+  --light-bg: #eee; 
+  --border: .1rem solid rgba(0,0,0,.2);
+
+}
+*::selection{
+  background-color: var(--main-color);
+  color: var(--white);
+}
+*::-webkit-scrollbar{
+  height: .5rem;
+  width: 1rem;
+}
+*::-webkit-scroolbar-track{
+  background-color: transparent;
+}
+*::-webkit-scrollbar-thumb{
+  background-color: var(--main-color);
+}
+*{
+  font-family: 'Roboto', sans-serif;
+  margin: 0;padding: 0;
+  box-sizing: border-box;
+  outline: none; border: none; 
+  text-decoration: none;
+}
+th, 
+td {
+  font-size: 1.5rem;
+}
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+body {
+  background-color: var(--light-bg);
+  padding-left: 30rem;
+
+}
+body.active {
+  padding-left: 0;
+}
+section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.boutton {
+    border-radius: .5rem;
+    padding: 1rem 3rem;
+    font-size: 1.8rem;
+    text-transform: capitalize;
+    cursor: pointer;
+    text-align: center;
+}
+.btn--full{
+  margin-top: 1rem;
+  display: block;
+  width: 100%;
+}
+.btn--primary, .btn--secondary{
+  color: var(--white);
+
+}
+.btn--primary:hover, .btn--secondary:hover{
+   opacity: .9;
+}
+.btn--primary {
+   background-color: var(--main-color);
+}
+.btn--secondary {
+  background-color: var(--red);
+}
+#menu-btn {
+  display: none;
+}
+.header {
+  background-color: var(--white);
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;left: 0;right: 0;
+  z-index: 1000;
+}
+.header .flex {
+  padding: 1.5rem 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex .logo {
+  font-size: 2.5rem;
+  color: var(--black);
+  font-weight: bolder;
+}
+
+.flex .search-form {
+  width: 50rem;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 2rem;
+  background: var(--light-bg);
+}
+.search-form input {
+   width: 100%;
+   background: none;
+   font-size: 1.8rem;
+   color: var(--black);
+}
+.search-form button {
+    font-size: 2.5rem;
+    color: var(--black);
+    cursor: pointer;
+    background: none;
+}
+
+.search-form button {
+  color: var(--main-color);
+}
+
+.flex .icons div {
+   font-size: 2rem;
+   color: var(--black);
+   border-radius: .5rem;
+   height: 4.5rem;
+   cursor: pointer;
+   width: 4.5rem;
+   line-height: 4.4rem;
+   background-color: var(--light-bg); 
+   text-align: center;
+   margin-left: 1rem;
+}
+
+.flex .icons div:hover {
+   background-color: var(--black);
+   color: var(--white);
+}
+#search-btn {
+   display: none;
+}
+.flex .profile {
+  position: absolute;
+  top: 120%; right: 2rem; 
+  border-radius: .5rem;
+  padding: 2rem;
+  text-align: center;
+  width: 30rem;
+  background: var(--white);
+  transform: scale(0);
+  transform-origin: top right;
+  transition: .2s linear;
+}
+
+.flex .profile.active {
+   transform: scale(1);
+}
+
+.flex .profile img {
+  height: 10rem; 
+  width: 10rem; 
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: .5rem;
+}
+
+.flex .profile h3 {
+  font-size: 2rem;
+  color: var(--black);
+}
+
+.flex .profile span {
+  font-size: 1.6rem;
+  color: var(--light-color);
+}
+
+.side-bar {
+  position: fixed;
+  top: 0;left: 0;
+  height: 100%;
+  width: 30rem;
+  background-color: var(--white);
+  border-right: var(--border);
+  transition: .2s linear;
+  z-index: 1200;
+}
+.side-bar.active {
+  left: -32rem;
+}
+.nav_bar {
+  margin: 2rem 0;
+}
+.nav_bar a{
+   display: block;
+   padding: 2rem;
+  margin: .5rem 0;
+  font-size: 1.8rem;
+}
+#close-side-bar {
+  text-align: right;
+  padding: 2rem;
+  padding-bottom: 0;
+  display: none;
+
+}
+#close-side-bar i {
+  height: 4.5rem;
+  width: 4.5rem;
+  line-height: 4.4rem;
+  font-size: 2rem;
+  color: pointer;
+  background-color: var(--red);
+  text-align: center;
+  cursor: pointer;
+  border-radius: .5rem;
+}
+#close-side-bar i:hover {
+  background-color: var(--black);
+}
+
+.nav_bar a:hover {
+   background: var(--light-bg);
+}
+.nav_bar a:hover i {
+  margin-right: 2.5rem ;
+}
+.nav_bar a i {
+  color: var(--main-color);
+  margin-right: 1.5rem;
+  transition: .2s linear;
+}
+.nav_bar a span {
+   color: var(--light-color);
+}
+.cus-pag li a{
+  font-size: 1.5rem;
+}
+
+.table-header {
+  margin: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* .main {
+  position: relative;
+
+
+
+} */
+.main .search-form {
+  width: 50rem;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+  gap: 2rem;
+  border: var(--border);
+  background-color: var(--white);
+}
+
+.custom-modal {
+  position: absolute;
+  max-width: 80vw;
+  max-height: 100vh;
+  box-shadow: 0 0 0 100vw rgba(0,0,0,.7);
+  z-index: 100000;
+  /* display: none; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+/* .custom-modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.cs-modal {
+  width: 100rem;
+  height: 50rem;
+  background-color: var(--white);
+} */
+
+
+
+
+
+
+
+
+
+@media (max-width:991px ){
+   html {
+    font-size: 55%;
+   }
+}
+
+@media (max-width:768px ){
+  .logo{
+    font-size: 2rem 0;
+  }
+  #search-btn{
+    display: inline-block;
+   }
+   #menu-btn {
+    display: inline-block;;
+  }
+   .flex .search-form {
+     position: absolute;
+     top: 99%;left: 0;right: 0;
+     width: auto;
+     border-top: var(--border);
+     border-bottom: var(--border);
+     background-color: var(--white);
+     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+     transition: .2s linear;
+   }
+   body {
+    padding-left: 0;
+   }
+   .flex .search-form.active {
+    clip-path: polygon(0 0, 100% 0,100% 100%, 0 100%);
+     
+   }
+   .side-bar {
+    transition: .2s linear;
+    left: -30rem;
+   }
+    .side-bar.active {
+      left: 0;
+      box-shadow: 0 0 0 100vw rgba(0,0,0,.7);
+    }
+   #close-side-bar {
+    display: block;
+   }
+}
+@media (max-width:450px ){
+  html {
+   font-size: 50%;
+  }
+}

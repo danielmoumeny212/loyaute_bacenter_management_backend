@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loyauté internationnale</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+/>
+<!-- Google Fonts Roboto -->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
+<link rel="stylesheet" href="{% static 'home/css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/mdbmin.css' %}" />
+
+{% block head %} {% endblock %}
+<!-- MDB -->
+</head>
+<body>
+  {% include 'header.html' %}
+  {% include 'side_bar.html' %}
+   {% block content %} {% endblock %}
+
+
+
+<script>
+    let profile = document.querySelector('.header .flex .profile');
+    let searchForm = document.querySelector('.search-form');
+    let sideBar = document.querySelector('.side-bar');
+    let body = document.body; 
+  
+    document.querySelector('#user-btn').onclick = () =>{
+      profile.classList.toggle('active');
+      searchForm.classList.remove('active');
+    }
+    document.querySelector('#search-btn').onclick = () =>{
+       searchForm.classList.toggle('active');
+      profile.classList.remove('active');
+    }
+    document.querySelector('#menu-btn').onclick = () =>{
+      sideBar.classList.toggle('active');
+      body.classList.toggle('active');
+    }
+  
+    document.querySelector('#close-side-bar').onclick = () =>{
+      sideBar.classList.remove('active');
+      body.classList.toggle('active');
+  
+      
+    }
+    window.onscroll = () =>{
+      profile.classList.remove('active');
+      searchForm.classList.remove('active');
+  
+    }
+  </script>
+<script type="text/javascript" src="{% static 'home/js/mdb.min.js' %}"></script>
+<script type="text/javascript"></script>
+
+</body>
+</html>
